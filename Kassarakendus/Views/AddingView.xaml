@@ -1,0 +1,127 @@
+﻿<Page x:Class="Kassarakendus.Views.AddingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kassarakendus.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="400"
+      Title="Adding">
+    <Page.Resources>
+        <Style x:Key="HeadersStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="0,10,10,10" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="25" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="25" />
+        </Style>
+    </Page.Resources>
+    <Grid HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Width="400"
+          Height="400">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>    
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Grid.Row="0"
+                       Style="{StaticResource HeadersStyle}"
+                       Text="Lisa uus kategooria" />
+            <TextBox x:Name="tbNewCategory" 
+                     Grid.Column="0" Grid.Row="1" />
+            <Button x:Name="btnNewCategory" 
+                    Click="btnNewCategory_Click"
+                    Grid.Column="1" Grid.Row="1" 
+                    Content="Lisa"
+                    Background="YellowGreen"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2"
+                       Style="{StaticResource HeadersStyle}"
+                       Text="Lisa uus toode" />
+            <StackPanel Grid.Row="1">
+                <Label Content="Toote nimetus"/>
+                <Label Content="Toote kood" />
+                <Label Content="Toote kategooria" />
+                <Label Content="Toote hind" />
+                <Label Content="Toote kogus" />
+                <Label Content="Kommentaar" />
+            </StackPanel>
+            <StackPanel x:Name="spProductForm" 
+                        Grid.Row="1" Grid.Column="1">
+                <TextBox x:Name="tbNewProductName" 
+                         Text="{Binding SelectedProduct.ProductName}"/>
+                <TextBox x:Name="tbNewProductCode"
+                         Text="{Binding SelectedProduct.ProductCode}"/>
+                <ComboBox x:Name="cbNewProductCategory" 
+                          ItemsSource="{Binding Categories}"
+                          Height="25"
+                          SelectedIndex="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CategoryName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBox x:Name="tbNewProductPrice"
+                         Text="{Binding SelectedProduct.ProductPrice}"/>
+                <TextBox x:Name="tbNewProductQuanity"
+                         Text="{Binding SelectedProduct.ProductQuantity}"/>
+                <TextBox x:Name="tbNewProductComment"  
+                         TextWrapping="Wrap"
+                         Text="{Binding SelectedProduct.ProductComment}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnNewProduct" 
+                            Click="btnNewProduct_Click"
+                            Content="Lisa"
+                            Background="YellowGreen"/>
+                    <Button x:Name="btnEditProduct" 
+                            Click="btnEditProduct_Click"
+                            Content="Muuda"
+                            Background="YellowGreen"
+                            Visibility="Collapsed"/>
+                    <Button x:Name="btnCancelAddProduct" 
+                            Click="btnCancelProduct_Click"
+                            Content="Tühista" 
+                            Grid.Column="1"
+                            Background="Tomato"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        
+        
+    </Grid>
+</Page>

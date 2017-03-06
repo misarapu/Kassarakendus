@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Kassarakendus.Domain.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clerk">
+    <Key>
+      <PropertyRef Name="ClerkId" />
+    </Key>
+    <Property Name="ClerkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BirthDate" Type="date" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Since" Type="date" Nullable="false" />
+    <Property Name="To" Type="date" />
+    <Property Name="Role" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientId" />
+    </Key>
+    <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Level" Type="int" Nullable="false" />
+    <Property Name="Since" Type="date" Nullable="false" />
+    <Property Name="To" Type="date" />
+  </EntityType>
+  <EntityType Name="ClientLevel">
+    <Key>
+      <PropertyRef Name="ClientLevelId" />
+    </Key>
+    <Property Name="ClientLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LevelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Discount" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoginLog">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClerkId" Type="int" Nullable="false" />
+    <Property Name="LoginTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="LogoutTime" Type="datetime2" Precision="7" />
+    <Property Name="OpenedDay" Type="nchar" MaxLength="1" />
+    <Property Name="ClosedDay" Type="nchar" MaxLength="1" />
+    <Property Name="CashAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Since" Type="datetime" />
+    <Property Name="To" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Comment" Type="varchar" MaxLength="200" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Since" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="To" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentType" Type="varchar" MaxLength="10" />
+    <Property Name="Date" Type="datetime2" Precision="7" />
+    <Property Name="TotalCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ClerkId" Type="int" />
+    <Property Name="ClientId" Type="int" />
+  </EntityType>
+  <EntityType Name="TransactionLine">
+    <Key>
+      <PropertyRef Name="TransactionLineId" />
+    </Key>
+    <Property Name="TransactionLineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="SalePrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TransactionId" Type="int" />
+  </EntityType>
+  <Association Name="Client_toClientLevel">
+    <End Role="ClientLevel" Type="Self.ClientLevel" Multiplicity="1" />
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientLevel">
+        <PropertyRef Name="ClientLevelId" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="Level" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LoginLog_toClerk">
+    <End Role="Clerk" Type="Self.Clerk" Multiplicity="1" />
+    <End Role="LoginLog" Type="Self.LoginLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clerk">
+        <PropertyRef Name="ClerkId" />
+      </Principal>
+      <Dependent Role="LoginLog">
+        <PropertyRef Name="ClerkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Product_ToCategory">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Transaction_toClerk">
+    <End Role="Clerk" Type="Self.Clerk" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clerk">
+        <PropertyRef Name="ClerkId" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="ClerkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Transaction_toClient">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TransactionLine_toProduct">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="TransactionLine" Type="Self.TransactionLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="TransactionLine">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TransactionLine_toTransaction">
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="0..1" />
+    <End Role="TransactionLine" Type="Self.TransactionLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="TransactionId" />
+      </Principal>
+      <Dependent Role="TransactionLine">
+        <PropertyRef Name="TransactionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KassarakendusDomainStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clerk" EntityType="Self.Clerk" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientLevel" EntityType="Self.ClientLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoginLog" EntityType="Self.LoginLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionLine" EntityType="Self.TransactionLine" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Client_toClientLevel" Association="Self.Client_toClientLevel">
+      <End Role="ClientLevel" EntitySet="ClientLevel" />
+      <End Role="Client" EntitySet="Client" />
+    </AssociationSet>
+    <AssociationSet Name="LoginLog_toClerk" Association="Self.LoginLog_toClerk">
+      <End Role="Clerk" EntitySet="Clerk" />
+      <End Role="LoginLog" EntitySet="LoginLog" />
+    </AssociationSet>
+    <AssociationSet Name="Product_ToCategory" Association="Self.Product_ToCategory">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="Transaction_toClerk" Association="Self.Transaction_toClerk">
+      <End Role="Clerk" EntitySet="Clerk" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="Transaction_toClient" Association="Self.Transaction_toClient">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="TransactionLine_toProduct" Association="Self.TransactionLine_toProduct">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="TransactionLine" EntitySet="TransactionLine" />
+    </AssociationSet>
+    <AssociationSet Name="TransactionLine_toTransaction" Association="Self.TransactionLine_toTransaction">
+      <End Role="Transaction" EntitySet="Transaction" />
+      <End Role="TransactionLine" EntitySet="TransactionLine" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

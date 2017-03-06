@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Kassarakendus.UserControls.UserInfoUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kassarakendus.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel x:Name="spUserInfo"
+                    Style="{StaticResource spInfo}">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Eesnimi: "/>
+                <TextBlock x:Name="tblFirstName"
+                           Text="{Binding User.FirstName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Perenimi: " />
+                <TextBlock x:Name="tblLastName"
+                           Text="{Binding User.LastName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Sünniaeg: " />
+                <TextBlock x:Name="tblBirthDate"
+                           Text="{Binding User.BirthDateStr}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Kasutajanimi: " />
+                <TextBlock x:Name="tblUserName"
+                           Text="{Binding User.UserName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Telefon: " />
+                <TextBlock x:Name="tblPhone"
+                           Text="{Binding User.Phone}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="E-mail: " />
+                <TextBlock x:Name="tblEmail"
+                           Text="{Binding User.Email}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Tööl alates: " />
+                <TextBlock x:Name="tblSince"
+                           Text="{Binding User.Since, StringFormat=dd-MM-yyyy}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

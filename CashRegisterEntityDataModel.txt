@@ -1,0 +1,28 @@
+﻿Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.3413019.
+Generating the model took 00:00:02.9647351.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:00.9805164.
+Generating the model took 00:00:02.8019145.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.3142168.
+Generating the model took 00:00:02.6056217.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:00.9238350.
+Generating the model took 00:00:02.5731632.
+An item with the same key has already been added.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.1722123.
+Generating the model took 00:00:02.7831250.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.0715265.
+Generating the model took 00:00:02.7142273.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.0470694.
+Generating the model took 00:00:02.6996382.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.0834290.
+Generating the model took 00:00:02.6612340.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.1157559.
+Generating the model took 00:00:02.8557708.

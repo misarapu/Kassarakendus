@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Kassarakendus.Domain" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="KontaktidBaasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Category" EntityType="Kassarakendus.Domain.Category" />
+    <EntitySet Name="Clerk" EntityType="Kassarakendus.Domain.Clerk" />
+    <EntitySet Name="Client" EntityType="Kassarakendus.Domain.Client" />
+    <EntitySet Name="ClientLevel" EntityType="Kassarakendus.Domain.ClientLevel" />
+    <EntitySet Name="LoginLog" EntityType="Kassarakendus.Domain.LoginLog" />
+    <EntitySet Name="Product" EntityType="Kassarakendus.Domain.Product" />
+    <EntitySet Name="Transaction" EntityType="Kassarakendus.Domain.Transaction" />
+    <EntitySet Name="TransactionLine" EntityType="Kassarakendus.Domain.TransactionLine" />
+    <AssociationSet Name="Product_ToCategory" Association="Kassarakendus.Domain.Product_ToCategory">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="LoginLog_toClerk" Association="Kassarakendus.Domain.LoginLog_toClerk">
+      <End Role="Clerk" EntitySet="Clerk" />
+      <End Role="LoginLog" EntitySet="LoginLog" />
+    </AssociationSet>
+    <AssociationSet Name="Transaction_toClerk" Association="Kassarakendus.Domain.Transaction_toClerk">
+      <End Role="Clerk" EntitySet="Clerk" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="Client_toClientLevel" Association="Kassarakendus.Domain.Client_toClientLevel">
+      <End Role="ClientLevel" EntitySet="ClientLevel" />
+      <End Role="Client" EntitySet="Client" />
+    </AssociationSet>
+    <AssociationSet Name="Transaction_toClient" Association="Kassarakendus.Domain.Transaction_toClient">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="TransactionLine_toProduct" Association="Kassarakendus.Domain.TransactionLine_toProduct">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="TransactionLine" EntitySet="TransactionLine" />
+    </AssociationSet>
+    <AssociationSet Name="TransactionLine_toTransaction" Association="Kassarakendus.Domain.TransactionLine_toTransaction">
+      <End Role="Transaction" EntitySet="Transaction" />
+      <End Role="TransactionLine" EntitySet="TransactionLine" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Product" Relationship="Kassarakendus.Domain.Product_ToCategory" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Clerk">
+    <Key>
+      <PropertyRef Name="ClerkId" />
+    </Key>
+    <Property Name="ClerkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Since" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="To" Type="DateTime" Precision="0" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LoginLog" Relationship="Kassarakendus.Domain.LoginLog_toClerk" FromRole="Clerk" ToRole="LoginLog" />
+    <NavigationProperty Name="Transaction" Relationship="Kassarakendus.Domain.Transaction_toClerk" FromRole="Clerk" ToRole="Transaction" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientId" />
+    </Key>
+    <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Level" Type="Int32" Nullable="false" />
+    <Property Name="Since" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="To" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="ClientLevel" Relationship="Kassarakendus.Domain.Client_toClientLevel" FromRole="Client" ToRole="ClientLevel" />
+    <NavigationProperty Name="Transaction" Relationship="Kassarakendus.Domain.Transaction_toClient" FromRole="Client" ToRole="Transaction" />
+  </EntityType>
+  <EntityType Name="ClientLevel">
+    <Key>
+      <PropertyRef Name="ClientLevelId" />
+    </Key>
+    <Property Name="ClientLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Discount" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+    <NavigationProperty Name="Client" Relationship="Kassarakendus.Domain.Client_toClientLevel" FromRole="ClientLevel" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="LoginLog">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClerkId" Type="Int32" Nullable="false" />
+    <Property Name="LoginTime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="LogoutTime" Type="DateTime" Precision="7" />
+    <Property Name="OpenedDay" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="ClosedDay" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CashAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Since" Type="DateTime" Precision="3" />
+    <Property Name="To" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Clerk" Relationship="Kassarakendus.Domain.LoginLog_toClerk" FromRole="LoginLog" ToRole="Clerk" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Since" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="To" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="Category" Relationship="Kassarakendus.Domain.Product_ToCategory" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="TransactionLine" Relationship="Kassarakendus.Domain.TransactionLine_toProduct" FromRole="Product" ToRole="TransactionLine" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="7" />
+    <Property Name="TotalCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="ClerkId" Type="Int32" />
+    <Property Name="ClientId" Type="Int32" />
+    <NavigationProperty Name="Clerk" Relationship="Kassarakendus.Domain.Transaction_toClerk" FromRole="Transaction" ToRole="Clerk" />
+    <NavigationProperty Name="Client" Relationship="Kassarakendus.Domain.Transaction_toClient" FromRole="Transaction" ToRole="Client" />
+    <NavigationProperty Name="TransactionLine" Relationship="Kassarakendus.Domain.TransactionLine_toTransaction" FromRole="Transaction" ToRole="TransactionLine" />
+  </EntityType>
+  <EntityType Name="TransactionLine">
+    <Key>
+      <PropertyRef Name="TransactionLineId" />
+    </Key>
+    <Property Name="TransactionLineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="SalePrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TransactionId" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="Kassarakendus.Domain.TransactionLine_toProduct" FromRole="TransactionLine" ToRole="Product" />
+    <NavigationProperty Name="Transaction" Relationship="Kassarakendus.Domain.TransactionLine_toTransaction" FromRole="TransactionLine" ToRole="Transaction" />
+  </EntityType>
+  <Association Name="Product_ToCategory">
+    <End Type="Kassarakendus.Domain.Category" Role="Category" Multiplicity="1" />
+    <End Type="Kassarakendus.Domain.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LoginLog_toClerk">
+    <End Type="Kassarakendus.Domain.Clerk" Role="Clerk" Multiplicity="1" />
+    <End Type="Kassarakendus.Domain.LoginLog" Role="LoginLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clerk">
+        <PropertyRef Name="ClerkId" />
+      </Principal>
+      <Dependent Role="LoginLog">
+        <PropertyRef Name="ClerkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Transaction_toClerk">
+    <End Type="Kassarakendus.Domain.Clerk" Role="Clerk" Multiplicity="0..1" />
+    <End Type="Kassarakendus.Domain.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clerk">
+        <PropertyRef Name="ClerkId" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="ClerkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Client_toClientLevel">
+    <End Type="Kassarakendus.Domain.ClientLevel" Role="ClientLevel" Multiplicity="1" />
+    <End Type="Kassarakendus.Domain.Client" Role="Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientLevel">
+        <PropertyRef Name="ClientLevelId" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="Level" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Transaction_toClient">
+    <End Type="Kassarakendus.Domain.Client" Role="Client" Multiplicity="0..1" />
+    <End Type="Kassarakendus.Domain.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TransactionLine_toProduct">
+    <End Type="Kassarakendus.Domain.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="Kassarakendus.Domain.TransactionLine" Role="TransactionLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="TransactionLine">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TransactionLine_toTransaction">
+    <End Type="Kassarakendus.Domain.Transaction" Role="Transaction" Multiplicity="0..1" />
+    <End Type="Kassarakendus.Domain.TransactionLine" Role="TransactionLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="TransactionId" />
+      </Principal>
+      <Dependent Role="TransactionLine">
+        <PropertyRef Name="TransactionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

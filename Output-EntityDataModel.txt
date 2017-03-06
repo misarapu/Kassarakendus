@@ -1,0 +1,5 @@
+﻿Could not parse the configuration file. The error message is: 'An item with the same key has already been added.'. Try editing the file manually and then saving it.
+Generated model file: ProjectBaseModel.edmx.
+Loading metadata from the database took 00:00:01.1565653.
+Generating the model took 00:00:02.5812167.
+Unable to update the App.Config file because of the following exception: 'An item with the same key has already been added.'

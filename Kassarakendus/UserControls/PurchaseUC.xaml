@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="Kassarakendus.UserControls.PurchaseUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kassarakendus.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel x:Name="spPurchasePopup"
+                    Background="White"
+                    Height="300"
+                    Width="300">
+            <TextBlock Text="Maksmine"
+                        Margin="5,5,5,5"
+                        FontSize="24"/>
+            <Separator></Separator>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Summa: " 
+                           FontSize="18"
+                           Width="80"
+                           Margin="0,10,10,10"/>
+                <TextBlock x:Name="tblTotalPrice"
+                           TextAlignment="Right"
+                           Width="100"
+                           Height="24"
+                           FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Tasutud: " 
+                           FontSize="18"
+                           Width="80"
+                           Margin="0,10,10,10"/>
+                <TextBox x:Name="tbPaid" 
+                         Width="100"
+                         Height="24"
+                         FontSize="20"
+                         HorizontalContentAlignment="Right"
+                         VerticalContentAlignment="Center"
+                         TextChanged="tbPaid_TextChanged" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Tagasi: " 
+                           FontSize="18"
+                           Width="80"
+                           Margin="0,10,10,10"/>
+                <TextBlock x:Name="tblMoneyBack"
+                           TextAlignment="Right"
+                           Width="100"
+                           Height="24"
+                           FontSize="20"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center"
+                        Margin="0,20,0,0">
+                <Button x:Name="btnCash"
+                        Style="{StaticResource PurchaseButtonStyle}" Click="btnCash_Click">
+                    <Image Source="../Views/Images/Icons/appbar.money.png" />
+                </Button>
+                <Button x:Name="btnCard"
+                        Style="{StaticResource PurchaseButtonStyle}" Click="btnCard_Click">
+                    <Image Source="../Views/Images/Icons/appbar.creditcard.png" />
+                </Button>
+                <Button x:Name="btnConfirmPurchase" 
+                        Style="{StaticResource PurchaseButtonStyle}"
+                        Click="btnConfirmPurchase_Click"
+                        Background="YellowGreen">
+                    <Image Source="../Views/Images/Icons/appbar.check.png" />
+                </Button>
+                <Button x:Name="btnCancelPurchase" 
+                        Style="{StaticResource PurchaseButtonStyle}"
+                        Click="btnCancelPurchase_Click"
+                        Background="Tomato" >
+                    <Image Source="../Views/Images/Icons/appbar.close.png" />
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
